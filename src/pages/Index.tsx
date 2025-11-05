@@ -1,22 +1,12 @@
 import Hero from "@/components/ui/neural-network-hero";
 import { ProblemSection } from "@/components/sections/ProblemSection";
 import { FeaturesSectionWithHoverEffects } from "@/components/ui/feature-section-with-hover-effects";
-import { TechStack } from "@/components/ui/tech-stack";
+import { OrbitalTechStack } from "@/components/ui/orbital-tech-stack";
 import { FooterSection } from "@/components/sections/FooterSection";
 import InteractiveNeuralVortex from "@/components/ui/interactive-neural-vortex-background";
+import { motion } from "framer-motion";
 
 const Index = () => {
-  const techStack = [
-    { name: 'React', url: 'https://react.dev/', color: '#61DAFB' },
-    { name: 'TypeScript', url: 'https://www.typescriptlang.org/', color: '#3178C6' },
-    { name: 'Python', url: 'https://www.python.org/', color: '#3776AB' },
-    { name: 'TensorFlow', url: 'https://www.tensorflow.org/', color: '#FF6F00' },
-    { name: 'OpenAI', url: 'https://openai.com/', color: '#10A37F' },
-    { name: 'PostgreSQL', url: 'https://www.postgresql.org/', color: '#4169E1' },
-    { name: 'Docker', url: 'https://www.docker.com/', color: '#2496ED' },
-    { name: 'AWS', url: 'https://aws.amazon.com/', color: '#FF9900' },
-  ];
-
   return (
     <div className="relative w-full overflow-x-hidden">
       <InteractiveNeuralVortex />
@@ -35,28 +25,49 @@ const Index = () => {
 
       <ProblemSection />
 
-      <section className="py-24 px-6 bg-background">
+      <section className="py-24 px-6">
         <div className="max-w-7xl mx-auto text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-light text-foreground mb-6">
-            The KORU Solution
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Enterprise-grade AI that brings objectivity, speed, and transparency to every interview.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block px-4 py-2 mb-6 text-sm font-light tracking-wider text-white/70 border border-white/10 rounded-full backdrop-blur-sm">
+              THE SOLUTION
+            </span>
+            <h2 className="text-5xl md:text-6xl font-extralight text-white mb-6 tracking-tight">
+              The KORU <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">Solution</span>
+            </h2>
+            <p className="text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+              Enterprise-grade AI that brings objectivity, speed, and transparency to every interview.
+            </p>
+          </motion.div>
         </div>
         <FeaturesSectionWithHoverEffects />
       </section>
 
-      <section className="py-24 px-6 bg-background">
-        <div className="max-w-7xl mx-auto text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-light text-foreground mb-6">
-            Built on Industry-Leading Technology
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Powered by cutting-edge AI and scalable cloud infrastructure.
-          </p>
+      <section className="py-32 px-6">
+        <div className="max-w-7xl mx-auto text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block px-4 py-2 mb-6 text-sm font-light tracking-wider text-white/70 border border-white/10 rounded-full backdrop-blur-sm">
+              POWERED BY
+            </span>
+            <h2 className="text-5xl md:text-6xl font-extralight text-white mb-6 tracking-tight">
+              Built on <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">Advanced</span> Technology
+            </h2>
+            <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+              Powered by cutting-edge AI models, modern frameworks, and scalable cloud infrastructure 
+              to deliver unmatched interview intelligence.
+            </p>
+          </motion.div>
         </div>
-        <TechStack techStack={techStack} />
+        <OrbitalTechStack />
       </section>
 
       <FooterSection />
