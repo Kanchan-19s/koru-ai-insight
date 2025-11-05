@@ -3,6 +3,7 @@ import { ProblemSection } from "@/components/sections/ProblemSection";
 import { FeaturesSectionWithHoverEffects } from "@/components/ui/feature-section-with-hover-effects";
 import { TechStack } from "@/components/ui/tech-stack";
 import { FooterSection } from "@/components/sections/FooterSection";
+import InteractiveNeuralVortex from "@/components/ui/interactive-neural-vortex-background";
 
 const Index = () => {
   const techStack = [
@@ -17,8 +18,10 @@ const Index = () => {
   ];
 
   return (
-    <div className="w-full overflow-x-hidden bg-background">
-      <Hero 
+    <div className="relative w-full overflow-x-hidden">
+      <InteractiveNeuralVortex />
+      
+      <Hero
         title="AI Interview Intelligence That Hiring Teams Trust"
         description="KORU transforms candidate assessment with explainable AI, real-time transcription, and objective scoring. Make data-driven hiring decisions with confidence."
         badgeText="AI-Powered Assessment"
