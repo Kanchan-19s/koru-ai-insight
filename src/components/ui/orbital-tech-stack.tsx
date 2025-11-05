@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Database, Cpu, Cloud, Brain, Layers, Code } from "lucide-react";
 
@@ -6,227 +6,218 @@ interface TechItem {
   name: string;
   icon: React.ReactNode;
   color: string;
-  radius: number;
-  duration: number;
+  category: string;
 }
 
 export const OrbitalTechStack = () => {
   const technologies: TechItem[] = [
     { 
       name: "RAG Model", 
-      icon: <Brain className="w-6 h-6" />, 
-      color: "#8b5cf6", 
-      radius: 140, 
-      duration: 20 
+      icon: <Brain className="w-8 h-8" />, 
+      color: "#8b5cf6",
+      category: "Intelligence"
     },
     { 
       name: "Next.js", 
-      icon: <Code className="w-6 h-6" />, 
-      color: "#ffffff", 
-      radius: 180, 
-      duration: 25 
+      icon: <Code className="w-8 h-8" />, 
+      color: "#ffffff",
+      category: "Frontend"
     },
     { 
       name: "Node.js", 
-      icon: <Layers className="w-6 h-6" />, 
-      color: "#68a063", 
-      radius: 160, 
-      duration: 22 
+      icon: <Layers className="w-8 h-8" />, 
+      color: "#68a063",
+      category: "Backend"
     },
     { 
-      name: "AI", 
-      icon: <Cpu className="w-6 h-6" />, 
-      color: "#06b6d4", 
-      radius: 200, 
-      duration: 28 
+      name: "AI Engine", 
+      icon: <Cpu className="w-8 h-8" />, 
+      color: "#06b6d4",
+      category: "ML Engine"
     },
     { 
-      name: "Postgres", 
-      icon: <Database className="w-6 h-6" />, 
-      color: "#336791", 
-      radius: 120, 
-      duration: 18 
+      name: "PostgreSQL", 
+      icon: <Database className="w-8 h-8" />, 
+      color: "#336791",
+      category: "Database"
     },
     { 
-      name: "Cloud", 
-      icon: <Cloud className="w-6 h-6" />, 
-      color: "#ff9900", 
-      radius: 190, 
-      duration: 26 
+      name: "AWS", 
+      icon: <Cloud className="w-8 h-8" />, 
+      color: "#ff9900",
+      category: "Infrastructure"
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { 
+        duration: 0.7, 
+        ease: "easeOut" as const
+      },
+    },
+  };
+
   return (
-    <div className="flex justify-center items-center py-20 min-h-[600px]">
-      <div className="relative w-full max-w-[500px] h-[500px]">
-        {/* Central core */}
+    <div className="w-full py-12 px-4">
+      <div className="w-full max-w-7xl mx-auto">
+        {/* Timeline Container */}
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
-          initial={{ scale: 0, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          className="relative w-full"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={containerVariants}
         >
-          <div className="relative">
-            {/* Glowing core */}
+          {/* Animated Timeline Line - Horizontal */}
+          <div className="absolute left-0 right-0 top-20 h-1 -translate-y-1/2 z-0">
             <motion.div
-              className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 blur-xl opacity-60"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.6, 0.8, 0.6],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
+              className="h-full w-full bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"
+              initial={{ scaleX: 0, opacity: 0 }}
+              whileInView={{ scaleX: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: "easeInOut", delay: 0.2 }}
+              style={{ transformOrigin: "left" }}
             />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-600 to-cyan-600 flex items-center justify-center border-2 border-white/20 backdrop-blur-sm">
-                <span className="text-white font-bold text-sm">KORU</span>
-              </div>
-            </div>
           </div>
-        </motion.div>
 
-        {/* Orbital rings */}
-        {[120, 160, 200].map((radius, idx) => (
-          <motion.div
-            key={radius}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10"
-            style={{
-              width: radius * 2,
-              height: radius * 2,
-            }}
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 + idx * 0.1 }}
-          />
-        ))}
-
-        {/* Orbiting tech icons */}
-        {technologies.map((tech, index) => (
-          <motion.div
-            key={tech.name}
-            className="absolute top-1/2 left-1/2"
-            style={{
-              width: tech.radius * 2,
-              height: tech.radius * 2,
-              marginLeft: -tech.radius,
-              marginTop: -tech.radius,
-            }}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 + index * 0.1 }}
-          >
-            <motion.div
-              className="relative w-full h-full"
-              animate={{
-                rotate: 360,
-              }}
-              transition={{
-                duration: tech.duration,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            >
-              {/* Tech item positioned on orbit */}
+          {/* Tech Items - Horizontal Layout */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 relative z-10">
+            {technologies.map((tech, index) => (
               <motion.div
-                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                whileHover={{ scale: 1.3, zIndex: 50 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                key={tech.name}
+                variants={itemVariants}
+                className="flex flex-col items-center group relative z-20"
               >
-                <div className="relative group cursor-pointer">
-                  {/* Glow effect */}
+                {/* Tech Icon Container */}
+                <motion.div
+                  className="relative mb-6 md:mb-8 z-20"
+                  whileHover={{ scale: 1.15, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  {/* Animated Glow Background */}
                   <motion.div
-                    className="absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-70 transition-opacity"
-                    style={{ backgroundColor: tech.color }}
+                    className="absolute inset-0 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ 
+                      backgroundColor: tech.color,
+                      width: "120%",
+                      height: "120%",
+                      left: "-10%",
+                      top: "-10%"
+                    }}
                     animate={{
                       scale: [1, 1.2, 1],
+                      opacity: [0, 0.6, 0],
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 2.5,
                       repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.15,
                     }}
                   />
-                  
-                  {/* Icon container */}
+
+                  {/* Icon Circle with Border */}
                   <motion.div
-                    className="relative w-16 h-16 rounded-full border-2 backdrop-blur-md flex items-center justify-center"
+                    className="relative w-20 h-20 md:w-24 md:h-24 rounded-full border-2 backdrop-blur-md flex items-center justify-center z-20"
                     style={{
                       borderColor: tech.color,
-                      backgroundColor: `${tech.color}20`,
+                      backgroundColor: `${tech.color}12`,
                     }}
                     animate={{
                       boxShadow: [
-                        `0 0 20px ${tech.color}40`,
-                        `0 0 30px ${tech.color}60`,
-                        `0 0 20px ${tech.color}40`,
+                        `0 0 10px ${tech.color}20, inset 0 0 10px ${tech.color}05`,
+                        `0 0 20px ${tech.color}40, inset 0 0 15px ${tech.color}15`,
+                        `0 0 10px ${tech.color}20, inset 0 0 10px ${tech.color}05`,
                       ],
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 2.5,
                       repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.15,
                     }}
                   >
-                    <div style={{ color: tech.color }}>
+                    <div style={{ color: tech.color }} className="z-30 flex items-center justify-center">
                       {tech.icon}
                     </div>
                   </motion.div>
 
-                  {/* Label */}
+                  {/* Timeline Connection Dot */}
                   <motion.div
-                    className="absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity"
-                    initial={{ y: -10 }}
-                    whileHover={{ y: 0 }}
-                  >
-                    <div 
-                      className="px-3 py-1 rounded-full text-xs font-medium border backdrop-blur-sm"
-                      style={{
-                        color: tech.color,
-                        borderColor: `${tech.color}60`,
-                        backgroundColor: `${tech.color}10`,
-                      }}
-                    >
-                      {tech.name}
-                    </div>
-                  </motion.div>
-                </div>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        ))}
+                    className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-2"
+                    style={{ 
+                      borderColor: tech.color,
+                      backgroundColor: `${tech.color}30`
+                    }}
+                    animate={{
+                      scale: [1, 1.6, 1],
+                      opacity: [0.6, 1, 0.6],
+                    }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.15,
+                    }}
+                  />
+                </motion.div>
 
-        {/* Animated connection lines */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
-          <defs>
-            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0" />
-              <stop offset="50%" stopColor="#06b6d4" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          {technologies.map((_, index) => {
-            const nextIndex = (index + 1) % technologies.length;
-            return (
-              <motion.line
-                key={`line-${index}`}
-                x1="50%"
-                y1="50%"
-                x2="50%"
-                y2="50%"
-                stroke="url(#lineGradient)"
-                strokeWidth="1"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 0.3 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.5, delay: 1 + index * 0.1 }}
-              />
-            );
-          })}
-        </svg>
+                {/* Tech Name & Category */}
+                <motion.div
+                  className="text-center mt-8 md:mt-12"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 + index * 0.08 }}
+                >
+                  <div className="text-sm md:text-base font-semibold text-white mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-cyan-400 transition-all duration-300">
+                    {tech.name}
+                  </div>
+                  <motion.div
+                    className="text-xs md:text-sm font-light opacity-50 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ color: tech.color }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 0.6 + index * 0.08 }}
+                  >
+                    {tech.category}
+                  </motion.div>
+                </motion.div>
+
+                {/* Hover Indicator Line */}
+                <motion.div
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 group-hover:w-8 transition-all duration-300"
+                  style={{ backgroundColor: tech.color }}
+                />
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Bottom Decorative Line */}
+          <motion.div
+            className="mt-16 md:mt-20 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            style={{ transformOrigin: "center" }}
+          />
+        </motion.div>
       </div>
     </div>
   );
